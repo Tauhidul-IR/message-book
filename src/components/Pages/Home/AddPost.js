@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const AddPost = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const { user } = useContext(AuthContext)
 
 
     const handleAddProduct = (data) => {
-
         // console.log(data)
         const image = data.image[0];
         const formData = new FormData();
@@ -24,7 +25,10 @@ const AddPost = () => {
                     const postDetails = {
                         title: data.title,
                         post: data.post,
-                        img: imgData.data.url
+                        img: imgData.data.url,
+                        user: user?.displayName,
+                        email: user?.email
+
 
                     }
                     console.log(postDetails);
