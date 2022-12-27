@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const SingUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    // const { createUser, updateUser, googleSignIn } = useContext(AuthContext)
-    // const [signUpError, setSignUpError] = useState(null)
+    const { createUser, updateUser, googleSignIn } = useContext(AuthContext)
+    const [signUpError, setSignUpError] = useState(null)
     // const [createdUserEmail, setCreatedUserEmail] = useState('');
     // const [token] = useToken(createdUserEmail)
     // const navigate = useNavigate();
@@ -17,28 +18,27 @@ const SingUp = () => {
 
 
     const handleSignUp = data => {
-        console.log(data.userType)
-        // setSignUpError('')
-        // createUser(data.email, data.password)
-        //     .then(result => {
-        //         const user = result.user;
-        //         console.log(user)
-        //         toast.success("User Create SuccessFully")
-        //         //update user
-        //         const userInfo = {
-        //             displayName: data.name
-        //         }
-        //         updateUser(userInfo)
-        //             .then(() => {
-        //                 saveUser(data.email, data.name, data.userType)
-        //                 // navigate('/');
-        //             })
-        //             .catch(error => console.error(error))
-        //     })
-        //     .catch(error => {
-        //         console.error(error)
-        //         setSignUpError(error.message)
-        //     })
+        setSignUpError('')
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                toast.success("User Create SuccessFully")
+                //update user
+                // const userInfo = {
+                //     displayName: data.name
+                // }
+                // updateUser(userInfo)
+                //     .then(() => {
+                //         // saveUser(data.email, data.name, data.userType)
+                //         // navigate('/');
+                //     })
+                //     .catch(error => console.error(error))
+            })
+            .catch(error => {
+                console.error(error)
+                setSignUpError(error.message)
+            })
     }
 
 
@@ -66,18 +66,18 @@ const SingUp = () => {
 
 
     const handleGoogle = () => {
-        // googleSignIn()
-        //     .then(result => {
-        //         const user = result.user;
-        //         console.log(user)
-        //         // navigate(from, { replace: true })
-        //         toast.success("SignUp Successfully")
-        //         saveUser(user.email)
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         setSignUpError(error.message)
-        //     })
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                // navigate(from, { replace: true })
+                toast.success("SignUp Successfully")
+                // saveUser(user.email)
+            })
+            .catch(error => {
+                console.log(error);
+                setSignUpError(error.message)
+            })
     }
 
 

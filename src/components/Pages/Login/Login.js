@@ -1,14 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    // const { loginUser, googleSignIn } = useContext(AuthContext);
-    // const [loginError, setLoginError] = useState('');
-    // const [loginUserEmail, setLoginUserEmail] = useState('');
+    const { loginUser, googleSignIn } = useContext(AuthContext);
+    const [loginError, setLoginError] = useState('');
     // const location = useLocation()
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     // const from = location.state?.from?.pathname || '/';
     // if (token) {
@@ -16,32 +17,32 @@ const Login = () => {
     // }
 
     const handleLogin = data => {
-        // setLoginError('');
-        // loginUser(data.email, data.password)
-        //     .then(result => {
-        //         const user = result.user;
-        //         setLoginUserEmail(data.email)
+        setLoginError('');
+        loginUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
 
-        //     })
-        //     .catch(error => {
-        //         console.error(error.message)
-        //         setLoginError(error.message)
+            })
+            .catch(error => {
+                console.error(error.message)
+                setLoginError(error.message)
 
-        //     })
+            })
     }
 
     const handleGoogle = () => {
-        // googleSignIn()
-        //     .then(result => {
-        //         const user = result.user;
-        //         console.log(user)
-        //         toast.success("login Successfully")
-        //         navigate('/')
-        //     })
-        //     .catch(error => {
-        //         console.error(error)
-        //         setLoginError(error.message)
-        //     })
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                toast.success("login Successfully")
+                navigate('/')
+            })
+            .catch(error => {
+                console.error(error)
+                setLoginError(error.message)
+            })
     }
 
 
