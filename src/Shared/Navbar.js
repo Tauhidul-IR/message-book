@@ -5,9 +5,10 @@ const Navbar = () => {
 
 
     const navItem = <>
-        <li><Link>Item 1</Link></li>
+        <li><Link>Home</Link></li>
 
-        <li><Link>Item 3</Link></li>
+        <li><Link>Posts</Link></li>
+        <li><Link>About</Link></li>
     </>
 
     return (
@@ -22,7 +23,7 @@ const Navbar = () => {
                             {navItem}
                         </ul>
                     </div>
-                    <Link className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+                    <Link className="btn btn-ghost normal-case text-xl">Message-Book</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
