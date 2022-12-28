@@ -1,13 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import Loading from '../../../Shared/Loading';
+import EditAboutUserModal from './EditAboutUserModal';
+
 
 
 
 const About = () => {
+    const [aboutUser, setAboutUser] = useState(null);
 
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
+
+    const handlesetuser = () => {
+        setAboutUser(singleUser)
+    }
 
     // 
     const { data: singleUser, refetch, isLoading } = useQuery({
@@ -23,27 +30,28 @@ const About = () => {
         return <Loading></Loading>
     }
 
-    // fetch(`http://localhost:4000/user?email=${user?.email}`)
-    //     .then(res => res.json())
-    //     .then(data => console.log(data))
-    //     .catch(error => console.log(error))
 
-    console.log(singleUser);
+
+    // console.log(singleUser);
 
     return (
         <div>
-            <div className="card card-side bg-base-100 shadow-xl">
+            <div className="card card-side bg-base-100 shadow-xl w-full md:w-2/3 mx-auto">
                 <div className="card-body">
-                    <h2 className="card-title">{singleUser?.name}</h2>
-                    <p>{singleUser?.email}</p>
-                    <p>{singleUser?.university}</p>
-                    <p>{singleUser?.address}</p>
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary">edit</button>
+                        {/* The button to open modal */}
+                        <label onClick={handlesetuser} htmlFor="editAbout-modal" className="btn">Edit</label>
                     </div>
+                    <h2 className="card-title">Name : <span className='text-primary'>{singleUser?.name}</span></h2>
+                    <p className='font-bold'>Email : <span className='text-primary'>{singleUser?.email}</span></p>
+                    <p className='font-bold'>University : <span className='text-primary'>{singleUser?.university}</span></p>
+                    <p className='font-bold'>Address : <span className='text-primary'>{singleUser?.address}</span></p>
                 </div>
+                {
+                    aboutUser && <EditAboutUserModal refetch={refetch} setAboutUser={setAboutUser} singleUser={singleUser}></EditAboutUserModal>
+                }
             </div>
-        </div>
+        </div >
     );
 };
 
