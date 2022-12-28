@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const AddPost = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { user } = useContext(AuthContext)
+    const userName = user?.displayName ? user.displayName : 'no name';
+    console.log(user);
 
 
     const handleAddProduct = (data) => {
@@ -26,28 +29,30 @@ const AddPost = () => {
                         title: data.title,
                         post: data.post,
                         img: imgData.data.url,
-                        user: user?.displayName,
-                        email: user?.email
+                        user: userName,
+                        email: user?.email,
+                        love: 0
 
 
                     }
                     console.log(postDetails);
 
 
-                    // fetch('http://localhost:4000/addPost', {
-                    //     method: "POST",
-                    //     headers: {
-                    //         'content-type': 'application/json',
-                    //         authorization: `bearer ${localStorage.getItem('accessToken')}`
-                    //     },
-                    //     body: JSON.stringify(postDetails)
-                    // })
-                    //     .then(res => res.json())
-                    //     .then(result => {
-                    //         console.log(result);
-                    //         toast.success(`${data.name} is added successfully`);
-                    //         navigate('/dashboard/myProduct')
-                    //     })
+                    fetch('http://localhost:4000/addPost', {
+                        method: "POST",
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(postDetails)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            if (result.acknowledged) {
+                                toast.success(`Post added successfully`);
+                            }
+                            // navigate('/dashboard/myProduct')
+                        })
                 }
             })
             .catch(error => console.log(error))
