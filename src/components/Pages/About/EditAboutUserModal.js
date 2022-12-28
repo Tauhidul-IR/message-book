@@ -18,7 +18,7 @@ const EditAboutUserModal = ({ singleUser, setAboutUser, refetch }) => {
 
         }
 
-        fetch(`http://localhost:4000/user/${singleUser._id}`, {
+        fetch(`https://social-media-server-opal.vercel.app/user/${singleUser._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

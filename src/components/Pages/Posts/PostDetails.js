@@ -19,7 +19,7 @@ const PostDetails = () => {
             img: img,
             love: love + 1
         }
-        fetch(`http://localhost:4000/allPosts/${_id}`, {
+        fetch(`https://social-media-server-opal.vercel.app/allPosts/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -43,7 +43,7 @@ const PostDetails = () => {
     const { data: postinfo = [], refetch, isLoading } = useQuery({
         queryKey: [post._id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:4000/posts/${post._id}`);
+            const res = await fetch(`https://social-media-server-opal.vercel.app/posts/${post._id}`);
             const data = await res.json();
             return data;
         }
@@ -65,7 +65,7 @@ const PostDetails = () => {
             comments: comment
         }
         console.log(newPost);
-        fetch(`http://localhost:4000/posts/${postinfo._id}`, {
+        fetch(`https://social-media-server-opal.vercel.app/posts/${postinfo._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

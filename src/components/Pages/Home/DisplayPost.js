@@ -8,7 +8,7 @@ const DisplayPost = () => {
     const { data: allPosts = [], refetch, isLoading } = useQuery({
         queryKey: ["allPosts"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:4000/topPost`);
+            const res = await fetch(`https://social-media-server-opal.vercel.app/topPost`);
             const data = await res.json();
             return data;
         }

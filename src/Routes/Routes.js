@@ -36,7 +36,7 @@ const router = createBrowserRouter([
             {
                 path: '/posts/:id',
                 element: <PrivateRoute><PostDetails></PostDetails></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:4000/posts/${params.id}`)
+                loader: ({ params }) => fetch(`https://social-media-server-opal.vercel.app/posts/${params.id}`)
             }
         ]
     }

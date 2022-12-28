@@ -45,7 +45,7 @@ const SingUp = () => {
 
     const saveUser = (email, name, university, address) => {
         const user = { email, name, university, address };
-        fetch('http://localhost:4000/users', {
+        fetch('https://social-media-server-opal.vercel.app/users', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
