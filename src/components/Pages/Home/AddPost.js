@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const AddPost = () => {
@@ -8,54 +9,61 @@ const AddPost = () => {
     const { user } = useContext(AuthContext)
     const userName = user?.displayName ? user.displayName : 'no name';
     console.log(user);
+    const navigate = useNavigate();
 
 
     const handleAddProduct = (data) => {
         // console.log(data)
-        const image = data.image[0];
-        const formData = new FormData();
-        formData.append('image', image);
-        const url = `https://api.imgbb.com/1/upload?key=d7af164dae32ae1803621b0c1dce000c`;
-        fetch(url, {
-            method: "POST",
-            body: formData
-        })
-            .then(res => res.json())
-            .then(imgData => {
-                console.log(imgData);
-                if (imgData.success) {
-                    console.log(imgData.data.url);
-                    const postDetails = {
-                        title: data.title,
-                        post: data.post,
-                        img: imgData.data.url,
-                        user: userName,
-                        email: user?.email,
-                        love: 0
-
-
-                    }
-                    console.log(postDetails);
-
-
-                    fetch('http://localhost:4000/addPost', {
-                        method: "POST",
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify(postDetails)
-                    })
-                        .then(res => res.json())
-                        .then(result => {
-                            console.log(result);
-                            if (result.acknowledged) {
-                                toast.success(`Post added successfully`);
-                            }
-                            // navigate('/dashboard/myProduct')
-                        })
-                }
+        if (user?.uid) {
+            const image = data.image[0];
+            const formData = new FormData();
+            formData.append('image', image);
+            const url = `https://api.imgbb.com/1/upload?key=d7af164dae32ae1803621b0c1dce000c`;
+            fetch(url, {
+                method: "POST",
+                body: formData
             })
-            .catch(error => console.log(error))
+                .then(res => res.json())
+                .then(imgData => {
+                    console.log(imgData);
+                    if (imgData.success) {
+                        console.log(imgData.data.url);
+                        const postDetails = {
+                            title: data.title,
+                            post: data.post,
+                            img: imgData.data.url,
+                            user: userName,
+                            email: user?.email,
+                            love: 0
+
+
+                        }
+                        console.log(postDetails);
+
+
+                        fetch('http://localhost:4000/addPost', {
+                            method: "POST",
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(postDetails)
+                        })
+                            .then(res => res.json())
+                            .then(result => {
+                                console.log(result);
+                                if (result.acknowledged) {
+                                    toast.success(`Post added successfully`);
+                                    navigate('/posts')
+                                }
+                                // navigate('/dashboard/myProduct')
+                            })
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+        else {
+            toast.success('please login first to add post')
+        }
 
 
     }
@@ -86,7 +94,7 @@ const AddPost = () => {
                         {...register("post", {
                             required: 'Post Must Given.'
                         })}
-                        type="text" className="textarea textarea-bordered h-24 w-full " />
+                        type="text" className="textarea textarea-bordered h-12 w-full " />
                     {/* {errors.name && <p className='text-red-500'>{errors.name?.message}</p>} */}
 
                 </div>

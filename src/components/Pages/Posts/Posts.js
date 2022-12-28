@@ -7,8 +7,6 @@ import Loading from '../../../Shared/Loading';
 
 
 const Posts = () => {
-    // const [loveCount, setLoveCount] = useState()
-
 
     const handleLoveCount = (postDetails) => {
         const { post, title, email, img, love, _id } = postDetails;
@@ -42,8 +40,6 @@ const Posts = () => {
 
 
 
-
-
     const { data: allPosts = [], refetch, isLoading } = useQuery({
         queryKey: ['allPost'],
         queryFn: async () => {
@@ -57,7 +53,7 @@ const Posts = () => {
 
     return (
         <div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3'>
                 {
                     allPosts.map(post => <div className="card w-full md:w-96 bg-base-100 shadow-xl">
                         <figure className="px-10 pt-10">
@@ -66,17 +62,18 @@ const Posts = () => {
                         <div className="card-body items-center text-center">
 
                             <h2 className="card-title">{post?.title}</h2>
-                            <p>{post?.post}</p>
+                            {/* <p>{post?.post}</p> */}
                             {
-                                <p>Commet: {post?.comments}</p>
+                                <p className='font-bold text-primary'>Comment: <span className='text-black'>
+                                    {post?.comments ? post?.comments : "No comment yet"}
+                                </span></p>
                             }
                             <div className="card-actions items-center">
                                 <div className='flex items-center'>
                                     {post?.love}
-                                    <Link onClick={() => handleLoveCount(post)} className='ml-4'><FaHeart className='text-red-500'></FaHeart></Link>
+                                    <Link onClick={() => handleLoveCount(post)} className='ml-2'><FaHeart className='text-red-500'></FaHeart></Link>
                                 </div>
                                 <Link className="btn btn-primary btn-sm" to={`/posts/${post?._id}`}>Details</Link>
-                                <button className="btn btn-primary btn-sm"><Link>Add comment</Link></button>
                             </div>
                         </div>
                     </div>)

@@ -105,7 +105,7 @@ const PostDetails = () => {
                             {postinfo?.love}
                         </div>
                     </h2>
-                    <p>{postinfo?.details}</p>
+                    <p>{postinfo?.post}</p>
                     <p>Comments : {postinfo?.comments}</p>
                     <div className="card-actions justify-end">
                         {/* <Link onClick={() => handleAddComment(postinfo)} className="btn btn-primary btn-sm">Add comment</Link> */}

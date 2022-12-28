@@ -18,7 +18,8 @@ const Navbar = () => {
     const navItem = <>
         <li><Link to={'/'}>Home</Link></li>
 
-        <li><Link to={'/posts'}>Posts</Link></li>
+        <li><Link to={'/posts'}>Media</Link></li>
+        <li><Link to={'#'}>Notification</Link></li>
         {
             user?.uid ? <>
                 <li><Link to={'/about'}>About</Link></li>
@@ -39,7 +40,7 @@ const Navbar = () => {
                             {navItem}
                         </ul>
                     </div>
-                    <Link className="btn btn-ghost normal-case text-xl">Message-Book</Link>
+                    <Link className="btn btn-ghost normal-case text-indigo-800 text-3xl font-bold">Message-Book</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">

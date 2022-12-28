@@ -8,7 +8,7 @@ const DisplayPost = () => {
     const { data: allPosts = [], refetch, isLoading } = useQuery({
         queryKey: ["allPosts"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:4000/allPosts`);
+            const res = await fetch(`http://localhost:4000/topPost`);
             const data = await res.json();
             return data;
         }
@@ -29,7 +29,7 @@ const DisplayPost = () => {
                             <p>If a dog chews shoes whose shoes does he choose?</p>
 
                             <div className="card-actions items-center">
-                                <button className="btn btn-primary btn-sm"><Link>Details</Link></button>
+                                <Link to={`/posts/${posts?._id}`} className="btn btn-primary btn-sm">Details</Link>
                             </div>
                         </div>
                     </div>)

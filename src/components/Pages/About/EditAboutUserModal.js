@@ -62,7 +62,7 @@ const EditAboutUserModal = ({ singleUser, setAboutUser, refetch }) => {
                         <label>Address</label>
                         <input name='address' type="text" placeholder="Address" className="input input-bordered w-full" />
                         <br />
-                        <input className='w-full  btn btn-neutral' type="submit" value="Save" />
+                        <input className='w-full  btn btn-primary' type="submit" value="Save" />
 
                     </form>
                 </div>
