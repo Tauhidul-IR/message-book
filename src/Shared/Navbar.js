@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+import { FaUser, FaUserTimes } from 'react-icons/fa';
 
 const Navbar = () => {
     const { user, logOutUser } = useContext(AuthContext)
     const navigate = useNavigate();
+
+    const name = user?.displayName;
 
     const handlelogout = () => {
         logOutUser()
@@ -48,11 +51,21 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="https://placeimg.com/80/80/people" />
+
+                    <div className="w-5 rounded-full">
+
+                        {/* <div className="tooltip tooltip-open tooltip-bottom" data-tip="name">
+                            <button className="">
+                                
+                            </button>
+                        </div> */}
+                        <div className="tooltip tooltip-bottom" data-tip={user?.uid ? name : "No user"}>
+                            <button className="">{
+                                user?.uid ? <FaUser></FaUser> : <FaUserTimes></FaUserTimes>
+                            }</button>
                         </div>
-                    </label>
+                    </div>
+
                 </div>
             </div>
         </div>
