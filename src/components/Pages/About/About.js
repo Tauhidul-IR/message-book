@@ -9,14 +9,12 @@ import EditAboutUserModal from './EditAboutUserModal';
 
 const About = () => {
     const [aboutUser, setAboutUser] = useState(null);
-
     const { user } = useContext(AuthContext);
 
     const handlesetuser = () => {
         setAboutUser(singleUser)
     }
 
-    // 
     const { data: singleUser, refetch, isLoading } = useQuery({
         queryKey: [user?.email],
         queryFn: async () => {
@@ -29,10 +27,6 @@ const About = () => {
     if (isLoading) {
         return <Loading></Loading>
     }
-
-
-
-    // console.log(singleUser);
 
     return (
         <div>

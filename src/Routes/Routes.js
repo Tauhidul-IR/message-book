@@ -3,6 +3,7 @@ import About from "../components/Pages/About/About";
 import Home from "../components/Pages/Home/Home";
 import Login from "../components/Pages/Login/Login";
 import SingUp from "../components/Pages/Login/SingUp";
+import PostDetails from "../components/Pages/Posts/PostDetails";
 import Posts from "../components/Pages/Posts/Posts";
 import Main from "../layout/Main";
 
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
                 path: '/posts',
                 element: <Posts></Posts>
             },
+            {
+                path: '/posts/:id',
+                element: <PostDetails></PostDetails>,
+                loader: ({ params }) => fetch(`http://localhost:4000/posts/${params.id}`)
+            }
         ]
     }
 ])

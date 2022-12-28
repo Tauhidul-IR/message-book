@@ -66,14 +66,14 @@ const Posts = () => {
                             <h2 className="card-title">{post?.title}</h2>
                             <p>{post?.post}</p>
                             {
-                                <p>Commet part will come</p>
+                                <p>Commet part will come {post?._id}</p>
                             }
                             <div className="card-actions items-center">
                                 <div className='flex items-center'>
                                     {post?.love}
                                     <Link onClick={() => handleLoveCount(post)} className='ml-4'><FaHeart className='text-red-500'></FaHeart></Link>
                                 </div>
-                                <button className="btn btn-primary btn-sm"><Link>Details</Link></button>
+                                <Link className="btn btn-primary btn-sm" to={`/posts/${post?._id}`}>Details</Link>
                                 <button className="btn btn-primary btn-sm"><Link>Add comment</Link></button>
                             </div>
                         </div>
