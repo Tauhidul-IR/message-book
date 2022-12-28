@@ -61,7 +61,7 @@ const AddPost = () => {
     }
 
     return (
-        <div className='my-10 w-full mx-auto'>
+        <div className='my-10 w-full md:w-[500px] mx-auto'>
             <h1 className='text-5xl font-bold my-10 text-center'>Add Post Section</h1>
             <form onSubmit={handleSubmit(handleAddProduct)}>
 

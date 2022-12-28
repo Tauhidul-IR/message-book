@@ -94,19 +94,19 @@ const PostDetails = () => {
 
     return (
         <div>
-            <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card w-full md:w-96 bg-base-100 mx-auto my-10 shadow-xl">
                 <figure><img src={post?.img} alt="Shoes" /></figure>
                 <div className="card-body">
                     <h2 className="card-title">
                         {postinfo?.title}
                         <div className='flex items-center'>
                             {/* <Link className='ml-4'><FaHeart className='text-red-500'></FaHeart></Link> */}
-                            <Link onClick={() => handleLoveCount(postinfo)} className='ml-4'><FaHeart className='text-red-500'></FaHeart></Link>
+                            <Link onClick={() => handleLoveCount(postinfo)} className='ml-4 mr-2'><FaHeart className='text-red-500'></FaHeart></Link>
                             {postinfo?.love}
                         </div>
                     </h2>
                     <p>{postinfo?.details}</p>
-                    <p>{postinfo?.comments}</p>
+                    <p>Comments : {postinfo?.comments}</p>
                     <div className="card-actions justify-end">
                         {/* <Link onClick={() => handleAddComment(postinfo)} className="btn btn-primary btn-sm">Add comment</Link> */}
                         <form onSubmit={handleAddComment} className='grid grid-cols-1 w-full gap-3 mx-auto'>

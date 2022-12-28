@@ -59,7 +59,7 @@ const Posts = () => {
         <div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
-                    allPosts.map(post => <div className="card w-96 bg-base-100 shadow-xl">
+                    allPosts.map(post => <div className="card w-full md:w-96 bg-base-100 shadow-xl">
                         <figure className="px-10 pt-10">
                             <img src={post?.img} alt="Shoes" className="rounded-xl" />
                         </figure>
@@ -68,7 +68,7 @@ const Posts = () => {
                             <h2 className="card-title">{post?.title}</h2>
                             <p>{post?.post}</p>
                             {
-                                <p>Commet part will come {post?._id}</p>
+                                <p>Commet: {post?.comments}</p>
                             }
                             <div className="card-actions items-center">
                                 <div className='flex items-center'>
