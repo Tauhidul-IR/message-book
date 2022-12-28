@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 const SingUp = () => {
@@ -10,7 +10,7 @@ const SingUp = () => {
     const [signUpError, setSignUpError] = useState(null)
     // const [createdUserEmail, setCreatedUserEmail] = useState('');
     // const [token] = useToken(createdUserEmail)
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     // if (token) {
     //     navigate('/')
@@ -25,15 +25,16 @@ const SingUp = () => {
                 console.log(user)
                 toast.success("User Create SuccessFully")
                 //update user
-                // const userInfo = {
-                //     displayName: data.name
-                // }
-                // updateUser(userInfo)
-                //     .then(() => {
-                //         // saveUser(data.email, data.name, data.userType)
-                //         // navigate('/');
-                //     })
-                //     .catch(error => console.error(error))
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(data.email, data.name, data.university, data.address)
+                        // navigate('/');
+
+                    })
+                    .catch(error => console.error(error))
             })
             .catch(error => {
                 console.error(error)
@@ -42,23 +43,26 @@ const SingUp = () => {
     }
 
 
-    // const saveUser = (email, name, userType) => {
-    //     const user = { email, name, userType };
-    //     fetch('https://bikroy-bd-server.vercel.app/users', {
-    //         method: "POST",
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(user)
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setCreatedUserEmail(email)
-    //             // getUserToken(email)
-    //             // navigate('/');
-    //         })
-    //         .catch(error => console.error(error))
-    // }
+    const saveUser = (email, name, university, address) => {
+        const user = { email, name, university, address };
+        fetch('http://localhost:4000/users', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // 
+                if (data.acknowledged) {
+                    toast.success("Savad User Info successfully")
+                    navigate('/');
+                }
+                console.log(data);
+            })
+            .catch(error => console.error(error))
+    }
 
 
 
@@ -92,6 +96,34 @@ const SingUp = () => {
                         <label className="label"><span className="label-text font-bold">Name</span></label>
                         <input
                             {...register("name", {
+                                required: 'Name Must Given.'
+                            })}
+                            type="text" className="input input-bordered w-full max-w-xs" />
+                        {errors.name && <p className='text-red-500'>{errors.name?.message}</p>}
+
+                    </div>
+                    {/* --------------Name---------------------------------- */}
+
+
+                    {/* --------------Name---------------------------------- */}
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"><span className="label-text font-bold">Your University</span></label>
+                        <input
+                            {...register("university", {
+                                required: 'Name Must Given.'
+                            })}
+                            type="text" className="input input-bordered w-full max-w-xs" />
+                        {errors.name && <p className='text-red-500'>{errors.name?.message}</p>}
+
+                    </div>
+                    {/* --------------Name---------------------------------- */}
+
+
+                    {/* --------------Name---------------------------------- */}
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"><span className="label-text font-bold">Your Address</span></label>
+                        <input
+                            {...register("address", {
                                 required: 'Name Must Given.'
                             })}
                             type="text" className="input input-bordered w-full max-w-xs" />
@@ -142,7 +174,7 @@ const SingUp = () => {
                     {/* display Error */}
                     <div>
                         {
-                            // signUpError && <p className='text-red-600'>{signUpError}</p>
+                            signUpError && <p className='text-red-600'>{signUpError}</p>
                         }
                     </div>
                 </form>
