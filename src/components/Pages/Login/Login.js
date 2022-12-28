@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { toast } from 'react-hot-toast';
@@ -8,13 +8,11 @@ const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { loginUser, googleSignIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
-    // const location = useLocation()
+    const location = useLocation()
     const navigate = useNavigate();
 
-    // const from = location.state?.from?.pathname || '/';
-    // if (token) {
-    //     navigate(from, { replace: true })
-    // }
+    const from = location.state?.from?.pathname || '/';
+
 
     const handleLogin = data => {
         setLoginError('');
@@ -22,6 +20,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                navigate(from, { replace: true })
 
             })
             .catch(error => {
