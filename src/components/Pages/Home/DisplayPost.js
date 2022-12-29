@@ -7,7 +7,7 @@ import SinglePost from './SinglePost';
 const DisplayPost = () => {
 
     const { data: allPosts = [], refetch, isLoading } = useQuery({
-        queryKey: ["allPosts"],
+        queryKey: ["topPost"],
         queryFn: async () => {
             const res = await fetch(`https://social-media-server-opal.vercel.app/topPost`);
             const data = await res.json();
