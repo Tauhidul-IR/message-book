@@ -62,7 +62,7 @@ const AddPost = () => {
                 .catch(error => console.log(error))
         }
         else {
-            toast.success('please login first to add post')
+            toast.error('please login first to add post')
         }
 
 

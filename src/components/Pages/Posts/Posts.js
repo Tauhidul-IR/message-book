@@ -61,15 +61,15 @@ const Posts = () => {
                 {
                     allPosts.map(post => <div className="card w-full md:w-96 bg-base-100 shadow-xl">
                         <figure className="px-10 pt-10">
-                            <img src={post?.img} alt="Shoes" className="rounded-xl" />
+                            <img src={post?.img} alt="Shoes" className="rounded-xl w-72 h-52" />
                         </figure>
                         <div className="card-body items-center text-center">
 
                             <h2 className="card-title">{post?.title}</h2>
                             {/* <p>{post?.post}</p> */}
                             {
-                                <p className='font-bold text-primary'>Comment: <span className='text-black'>
-                                    {post?.comments ? post?.comments : "No comment yet"}
+                                post?.comments && <p className='font-bold text-primary'>Comment: <span className='text-black'>
+                                    {post?.comments}
                                 </span></p>
                             }
                             <div className="card-actions items-center">
